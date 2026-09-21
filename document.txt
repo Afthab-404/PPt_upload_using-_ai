@@ -1,0 +1,396 @@
+# AI Presentation Builder – Workflow Document
+
+## 1. Project Overview
+
+### Objective
+Build an AI-powered presentation generation platform that creates professional PowerPoint presentations from company-approved templates.
+
+The system should:
+
+- Understand company PPT templates
+- Generate presentation structure automatically
+- Create slide content using AI
+- Allow users to review and modify content
+- Preserve company branding and formatting
+- Generate a final downloadable PPTX file
+
+---
+
+# 2. User Workflow
+
+## Step 1: Create New Presentation
+
+User clicks:
+
+**Create Presentation**
+
+### User Inputs
+
+- Presentation Topic
+- Purpose
+- Audience
+- Number of Slides (Optional)
+- Template Selection
+- Supporting Documents (Optional)
+
+### Example
+
+Topic:
+AI in Healthcare
+
+Purpose:
+Board Meeting
+
+Audience:
+Executive Team
+
+Slides:
+10
+
+Template:
+Corporate Blue Template
+
+Documents:
+Annual_Report.pdf
+
+---
+
+## Step 2: AI Planning Stage
+
+AI analyzes:
+
+- User inputs
+- Template structure
+- Uploaded documents
+
+AI creates an outline.
+
+### Example Outline
+
+1. Title Slide
+2. Executive Summary
+3. Industry Overview
+4. Current Challenges
+5. AI Opportunities
+6. Benefits
+7. Risks
+8. Recommendations
+9. Future Outlook
+10. Conclusion
+
+---
+
+## Step 3: Outline Review
+
+User reviews generated outline.
+
+Available actions:
+
+- Approve Outline
+- Rename Section
+- Remove Section
+- Add New Section
+- Reorder Sections
+
+Example:
+
+Remove:
+Future Outlook
+
+Add:
+Implementation Roadmap
+
+---
+
+## Step 4: Content Generation
+
+AI generates content for every slide.
+
+Generated Elements:
+
+- Slide Title
+- Bullet Points
+- Summary Text
+- Notes
+- Tables (Future)
+- Charts (Future)
+
+Example
+
+Slide:
+Current Challenges
+
+Content:
+
+• Rising healthcare costs
+
+• Staff shortages
+
+• Increasing data complexity
+
+• Regulatory requirements
+
+---
+
+## Step 5: Presentation Workspace
+
+Presentation is stored as editable JSON.
+
+Example Structure
+
+{
+  "slides": [
+    {
+      "id": 1,
+      "title": "Executive Summary",
+      "content": [
+        "AI adoption is increasing",
+        "Healthcare organizations seek automation"
+      ]
+    }
+  ]
+}
+
+No PPT file is generated yet.
+
+---
+
+## Step 6: User Review & Editing
+
+User enters Presentation Review Mode.
+
+### Manual Editing
+
+User can:
+
+- Edit Title
+- Edit Content
+- Add Slide
+- Delete Slide
+- Reorder Slides
+
+### AI Editing
+
+User can chat with AI.
+
+Examples:
+
+"Make slide 4 more technical"
+
+"Add statistics"
+
+"Add implementation roadmap"
+
+"Create an executive summary"
+
+"Shorten presentation"
+
+"Add security risks section"
+
+AI updates presentation instantly.
+
+---
+
+## Step 7: Presentation Preview
+
+System displays presentation preview.
+
+Preview includes:
+
+- Slide sequence
+- Slide content
+- Template styling
+- Logo placement
+- Theme colors
+
+User reviews final output.
+
+---
+
+## Step 8: Approval Stage
+
+Before generation:
+
+Presentation Summary
+
+Topic:
+AI in Healthcare
+
+Slides:
+10
+
+Template:
+Corporate Blue
+
+Status:
+Ready For Export
+
+Options:
+
+- Generate PPTX
+- Generate PDF
+- Return To Edit
+
+---
+
+## Step 9: PPT Generation
+
+After approval:
+
+System:
+
+- Reads template
+- Applies content
+- Preserves formatting
+- Preserves branding
+- Preserves logos
+- Preserves layouts
+
+Output:
+
+generated_presentation.pptx
+
+---
+
+## Step 10: Download & History
+
+User can:
+
+- Download PPTX
+- Download PDF
+- Save Draft
+- Duplicate Presentation
+
+History stored for future editing.
+
+---
+
+# 3. AI Modules
+
+## Module 1: Outline Generator
+
+Responsibilities:
+
+- Create presentation structure
+- Determine slide order
+- Match presentation type
+
+Input:
+
+Topic
+Purpose
+Audience
+
+Output:
+
+Presentation outline
+
+---
+
+## Module 2: Content Generator
+
+Responsibilities:
+
+- Generate slide content
+- Generate bullet points
+- Generate summaries
+
+Output:
+
+Slide content
+
+---
+
+## Module 3: Document Retrieval
+
+Responsibilities:
+
+- Read uploaded files
+- Extract information
+- Provide context to AI
+
+Supported Files:
+
+- PDF
+- DOCX
+- PPTX
+- XLSX
+
+---
+
+## Module 4: Template Analyzer
+
+Responsibilities:
+
+- Read template structure
+- Identify placeholders
+- Extract fonts
+- Extract colors
+- Extract layouts
+
+---
+
+## Module 5: PPT Builder
+
+Responsibilities:
+
+- Insert generated content
+- Preserve styling
+- Generate final PPTX
+
+---
+
+# 4. Future Enhancements
+
+## Phase 2
+
+- RAG with company documents
+- Knowledge base integration
+- Previous presentation learning
+- Auto-reference generation
+
+---
+
+## Phase 3
+
+- Web research integration
+- Market intelligence collection
+- Competitor analysis
+
+---
+
+## Phase 4
+
+Multi-Agent Architecture
+
+Planner Agent
+
+Research Agent
+
+Content Agent
+
+Chart Agent
+
+Design Agent
+
+Review Agent
+
+PPT Builder Agent
+
+---
+
+# 5. Success Criteria
+
+A user should be able to:
+
+1. Upload a company template
+2. Enter a presentation topic
+3. Review AI-generated outline
+4. Edit using natural language
+5. Preview presentation
+6. Approve output
+7. Download a professionally formatted PPTX
+
+Target Goal:
+
+Reduce presentation creation time from several hours to less than 10 minutes while maintaining company branding and presentation quality.
