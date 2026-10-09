@@ -3,7 +3,9 @@ from bson import ObjectId
 from services.ppt_service import create_ppt
 from models.outline import OutlineUpdate
 import json
-
+from fastapi import UploadFile, File
+import os
+from fastapi.responses import FileResponse
 from config import presentations_collection
 from models.presentation import PresentationCreate
 from models.outline import OutlineUpdate
@@ -174,8 +176,8 @@ def generate_content(presentation_id: str):
         }
 
     content_text = generate_all_slide_content(
-    presentation["outline"]
-)
+        presentation["outline"]
+    )
 
     content_text = content_text.strip()
 
@@ -192,11 +194,11 @@ def generate_content(presentation_id: str):
             }
         }
     )
-    return {
-    "status": "success",
-    "slides": slides
-}
 
+    return {
+        "status": "success",
+        "slides": slides
+    }
 @router.post("/{presentation_id}/generate-ppt")
 def generate_ppt(presentation_id: str):
 
@@ -209,7 +211,32 @@ def generate_ppt(presentation_id: str):
 
     filename = f"presentations/{presentation_id}.pptx"
 
-    create_ppt(
+    # Check if a template was uploaded
+    template_path = presentation.get("template_path")
+
+    if template_path:
+        create_ppt(
+            presentation["slides"],
+            filename,
+            template_path=template_path,
+            presentation_title=presentation.get("topic", "Presentation")
+        )
+    else:
+        template_path = presentation.get(
+         "template_path"
+)
+
+    if template_path:
+
+      create_ppt(
+        presentation["slides"],
+        filename,
+        template_path
+    )
+
+    else:
+
+     create_ppt(
         presentation["slides"],
         filename
     )
@@ -232,8 +259,28 @@ from fastapi.responses import FileResponse
 
 from fastapi.responses import FileResponse
 
-@router.get("/{presentation_id}/download")
-def download_ppt(presentation_id: str):
+
+@router.post("/templates/upload")
+async def upload_template(file: UploadFile = File(...)):
+
+    os.makedirs("templates", exist_ok=True)
+
+    file_path = f"templates/{file.filename}"
+
+    with open(file_path, "wb") as buffer:
+        buffer.write(await file.read())
+
+    return {
+        "status": "success",
+        "template_path": file_path
+    }
+    
+
+@router.post("/{presentation_id}/upload-template")
+async def upload_template(
+    presentation_id: str,
+    file: UploadFile = File(...)
+):
 
     presentation = presentations_collection.find_one(
         {"_id": ObjectId(presentation_id)}
@@ -242,8 +289,44 @@ def download_ppt(presentation_id: str):
     if not presentation:
         return {"error": "Presentation not found"}
 
+    os.makedirs("templates", exist_ok=True)
+
+    file_path = f"templates/{file.filename}"
+
+    with open(file_path, "wb") as buffer:
+        buffer.write(await file.read())
+
+    presentations_collection.update_one(
+        {"_id": ObjectId(presentation_id)},
+        {
+            "$set": {
+                "template_name": file.filename,
+                "template_path": file_path
+            }
+        }
+    )
+
+    return {
+        "status": "success",
+        "template_path": file_path
+    }
+@router.get("/{presentation_id}/download")
+def download_ppt(
+    presentation_id: str
+):
+
+    presentation = presentations_collection.find_one(
+        {"_id": ObjectId(presentation_id)}
+    )
+
+    if not presentation:
+        return {
+            "error": "Presentation not found"
+        }
+
     return FileResponse(
         presentation["ppt_file"],
         media_type="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         filename=f"{presentation_id}.pptx"
     )
+    

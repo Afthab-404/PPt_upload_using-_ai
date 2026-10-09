@@ -1,6 +1,18 @@
+!.env.example
 .env
 *.env
 __pycache__/
 *.pyc
 venv/
 venvcaliber/
+
+# Python
+*.py[cod]
+# Generated PowerPoint files
+backend/presentations/
+
+# Uploaded templates may contain private company information
+backend/templates/
+
+# Local development
+.vscode/
